@@ -2,17 +2,17 @@
 
 ## Introducción
 
-Este repositorio contiene los ficheros necesarios para realizar el test de operación de sistemas.Con este test, se intenta valorar tus conocimientos de linux, docker, y tu capacidad para buscar y entender documentación sobre aplicaciones como [PostgreSQL](https://www.postgresql.org/), [Patroni](https://github.com/zalando/patroni) o [HAProxy](https://www.haproxy.com/).
+Este repositorio contiene los ficheros necesarios para realizar el test de operación de sistemas. Con este test, se intenta valorar tus conocimientos de linux, docker, y tu capacidad para buscar y entender documentación sobre aplicaciones como [etcd](https://etcd.io/), [PostgreSQL](https://www.postgresql.org/), [Patroni](https://github.com/zalando/patroni) o [HAProxy](https://www.haproxy.com/).
 
-El objetivo del test es simular un cluster de alta disponibidad de PostgreSQL, consistente en:
+El objetivo del test es simular un cluster de alta disponibidad de *PostgreSQL*, consistente en:
 
-- 2 contenedores ejecutando [PostgreSQL](https://www.postgresql.org/), en modo activo / standby, con replicación asíncrona. Cada contenedor tendrá instalado tanto *PostgreSQL* como [Patroni](https://github.com/zalando/patroni), para gestionar la alta disponibilidad.
-- 3 contenedores ejecutando [etcd](https://etcd.io/), formando un cluster que *Patroni* utiliza como almacén de configuración.
-- 1 contenedor ejecutando [HAProxy](https://www.haproxy.com/), como balanceador de los dos pods de *PostgreSQL*.
+- 2 contenedores ejecutando *PostgreSQL*, en modo activo / standby, con replicación asíncrona. Cada contenedor tendrá instalado tanto *PostgreSQL* como *Patroni*, para gestionar la alta disponibilidad.
+- 3 contenedores ejecutando *etcd*, formando un cluster que *Patroni* utiliza como almacén de configuración.
+- 1 contenedor ejecutando *HAProxy*, como balanceador de los dos pods de *PostgreSQL*.
 
-Para construir este cluster, se utilizan los ficheros [docker-compose-yaml](./docker-compose.yaml) y [Dockerfile](./Dockerfile) de este repositorio:
+Para instanciar este cluster, se utilizan los ficheros [docker-compose-yaml](./docker-compose.yaml) y [Dockerfile](./Dockerfile) de este repositorio:
 
-- El fichero [Dockerfile](./Dockerfile): construye una imagen de *PostgreSQL* versión 12, con los ejecutables de *Patroni*.
+- El fichero [Dockerfile](./Dockerfile) construye una imagen de *PostgreSQL* versión 12, con los ejecutables de *Patroni*.
 - El fichero [docker-compose](https://docs.docker.com/compose/compose-file/compose-file-v3/) describe la pila de contenedores que forma el servicio, con:
 
   - Los tres nodos de *etcd* (`etcd1`, `etcd2` y `etcd3`)
@@ -24,7 +24,9 @@ Para construir este cluster, se utilizan los ficheros [docker-compose-yaml](./do
 
 ### Construcción de la imagen
 
-Para construir la imagen docker que se utiliza en este test, puedes usar el comando
+Para construir la imagen docker que se utiliza en este test, necesitarás [docker](https://www.docker.com) y [docker-compose](https://docs.docker.com/compose/docker-compose). Ambos están [disponibles para Windows](https://docs.docker.com/desktop/install/windows-install/), aunque se recomienda utilizar una máquina virtual linux.
+
+Una vez tengas el software instalado y el repositorio clonado, puedes usar el comando:
 
 ```
 docker-compose build
@@ -32,7 +34,7 @@ docker-compose build
 
 ### Ejecución del servicio
 
-Para ejecutar la pila de servicios que se utiliza en este test, puedes usar el comando
+Para ejecutar la pila de servicios que se utiliza en este test, puedes usar el comando:
 
 ```
 docker-compose up
@@ -40,7 +42,9 @@ docker-compose up
 
 ### Resultado del test
 
-Para entregar tu respuesta al test, clona este repositorio, haz las modificaciones necesarias a los ficheros, añade los ficheros nuevos que sean necesarios para responder a la pregunta sobre HAProxy, y envíalo todo comprimido en un zip a la dirección de correo electrónico que se te proporcionará.
+Para entregar tu respuesta al test, clona este repositorio, y haz sobre los ficheros las modificaciones necesarias para responder las cuestiones que hay más abajo. También puedes añadir nuevos ficheros si los necesitas en alguna cuestión.
+
+Una vez tengas resueltas todas las cuestiones, comprime tu directorio en un zip y envíalo a la dirección de correo electrónico que se te proporcionará.
 
 ## Cuestiones
 
