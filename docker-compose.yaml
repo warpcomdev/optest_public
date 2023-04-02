@@ -1,0 +1,119 @@
+version: '3'
+
+services:
+
+  # ----------------
+  # Postgres cluster
+  # ----------------
+  postgres1:
+    build: .
+    volumes:
+      - postgres1-data:/opt/postgres
+      - postgres1-conf:/etc/patroni:ro
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/opt/postgres/data
+    networks:
+      service:
+
+  postgres2:
+    build: .
+    volumes:
+      - postgres2-data:/opt/postgres
+      - postgres2-conf:/etc/patroni:ro
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/opt/postgres/data
+    networks:
+      service:
+
+  # -------------------
+  # ETCD cluster
+  # -------------------
+
+  etcd1:
+    image: quay.io/coreos/etcd:v3.5.7
+    command: >
+      etcd
+      --name etcd1
+      --initial-advertise-peer-urls http://etcd1:2380
+      --listen-peer-urls http://0.0.0.0:2380
+      --advertise-client-urls http://etcd1:2379
+      --listen-client-urls http://0.0.0.0:2379
+      --initial-cluster etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      --initial-cluster-state new
+      --data-dir /etcd-data
+      --enable-grpc-gateway
+      --enable-v2
+    volumes:
+      - etcd1-data:/etcd-data
+    networks:
+      service:
+
+  etcd2:
+    image: quay.io/coreos/etcd:v3.5.7
+    command: >
+      etcd
+      --name etcd2
+      --initial-advertise-peer-urls http://etcd2:2380
+      --listen-peer-urls http://0.0.0.0:2380
+      --advertise-client-urls http://etcd2:2379
+      --listen-client-urls http://0.0.0.0:2379
+      --initial-cluster etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      --initial-cluster-state new
+      --data-dir /etcd-data
+      --enable-grpc-gateway
+      --enable-v2
+    volumes:
+      - etcd2-data:/etcd-data
+    networks:
+      service:
+
+  etcd3:
+    image: quay.io/coreos/etcd:v3.5.7
+    command: >
+      etcd
+      --name etcd3
+      --initial-advertise-peer-urls http://etcd3:2380
+      --listen-peer-urls http://0.0.0.0:2380
+      --advertise-client-urls http://etcd3:2379
+      --listen-client-urls http://0.0.0.0:2379
+      --initial-cluster etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      --initial-cluster-state new
+      --data-dir /etcd-data
+      --enable-grpc-gateway
+      --enable-v2
+    volumes:
+      - etcd3-data:/etcd-data
+    networks:
+      service:
+
+networks:
+  service:
+
+volumes:
+  etcd1-data:
+  etcd2-data:
+  etcd3-data:
+  postgres1-data:
+  postgres2-data:
+  postgres1-conf:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./postgres1-conf
+      o: bind
+  postgres2-conf:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./postgres2-conf
+      o: bind
+  haproxy-conf:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./haproxy-conf
+      o: bind
