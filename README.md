@@ -70,7 +70,7 @@ Modifica el fichero `docker-compose-yaml` o el `Dockerfile` para que los contene
 
 ### Ampliación de Dockerfile
 
-Modifica el fichero `Dockerfile` para instalar la versión 3 de la extensión `postgis` de *PostgreSQL*.
+Modifica el fichero `Dockerfile` para instalar la versión 3 de la extensión `postgis` de *PostgreSQL*. No modifiques la versión de *PostgreSQL*, que es la 12.
 
 ### Ampliación de docker-compose
 
@@ -86,6 +86,6 @@ Indica qué comandos has ejecutado para comprobar que tus respuestas son válida
 
 3. ¿Qué has hecho para comprobar que puedes conectar a postgres a través del balanceador?
 
-4. ¿Qué has hecho para comprobar que si el contenedor postgres activo cae, el servidor secundario se convierte automáticamente a activo?
+4. ¿Qué has hecho para comprobar que si el contenedor postgres activo cae, el servidor secundario se convierte automáticamente en activo?
 
-5. ¿Qué has hecho para comprobar que después de que el servidor secuendario se haya convertido en primario, al conectar de nuevo a través de *HAProxy* la conexión s establece con el nuevo primario?
+5. ¿Qué has hecho para comprobar que después de que el servidor secundario se haya convertido en primario, al conectar de nuevo a través de *HAProxy*, la conexión se establece con el nuevo primario?
