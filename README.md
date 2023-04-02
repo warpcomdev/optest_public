@@ -55,7 +55,7 @@ postgres2_1  | 2023-04-02 19:27:33,896 ERROR: Failed to get list of machines fro
 postgres2_1  | 2023-04-02 19:27:33,896 INFO: waiting on etcd
 ```
 
-Revisa las configuraciones de los ficheros [postgres1-conf/patroni.yml](./postgres1-conf/patroni.yml) y [postgres2-conf/patroni.yaml](./postgres2-conf/patroni.yml), y corrige las secciones `restapi`, `etcd` y `postgresql` para que los pods de *Patroni* puedan comunicarse entre sí, con *PostgreSQL*, y con *etcd*.
+Revisa las configuraciones de los ficheros [postgres1-conf/patroni.yml](./postgres1-conf/patroni.yml) y [postgres2-conf/patroni.yaml](./postgres2-conf/patroni.yml), y corrige las URLS en las secciones `restapi`, `etcd`, `postgresql` y `pg_hba` para que los pods de *Patroni* puedan comunicarse entre sí, con *PostgreSQL*, y con *etcd*.
 
 ### Configuración de privilegios
 

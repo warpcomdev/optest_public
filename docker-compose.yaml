@@ -111,9 +111,3 @@ volumes:
       type: none
       device: ./postgres2-conf
       o: bind
-  haproxy-conf:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./haproxy-conf
-      o: bind
